@@ -15,6 +15,7 @@
 
 <body
     class="font-[Inter] bg-gradient-to-br from-green-50 via-white to-green-100 min-h-screen flex items-center justify-center relative overflow-hidden">
+     @include('admin.layouts.notification')
     <!-- Background -->
 
     <!-- Container -->

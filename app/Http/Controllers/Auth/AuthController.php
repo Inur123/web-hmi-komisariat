@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-     public function showRegisterForm()
+    // ==== REGISTER ====
+    public function showRegisterForm()
     {
         return view('auth.register');
     }
@@ -38,7 +39,8 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('dashboard');
+        // Tambahkan flash message
+        return redirect()->route('dashboard')->with('success', 'Pendaftaran berhasil! Selamat datang, ' . $user->name);
     }
 
     // ==== LOGIN ====
@@ -56,21 +58,20 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials, $request->remember)) {
             $request->session()->regenerate();
-            return redirect()->route('dashboard');
+            return redirect()->route('dashboard')->with('success', 'Login berhasil! Selamat datang kembali.');
         }
 
-        return back()->withErrors([
-            'email' => 'Email atau password salah.',
-        ]);
+        return back()->with('error', 'Email atau password salah.');
     }
 
     // ==== LOGOUT ====
     public function logout(Request $request)
     {
+        $userName = Auth::user()?->name; // Ambil nama user sebelum logout
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('login');
+        return redirect()->route('login')->with('info', 'Anda telah logout. Sampai jumpa, ' . $userName . '!');
     }
 }
