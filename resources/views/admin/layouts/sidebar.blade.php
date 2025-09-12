@@ -27,10 +27,36 @@
                {{ request()->routeIs('dashboard') ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600 hover:bg-gray-50' }}">
                 🏠 <span class="ml-3">Dashboard</span>
             </a>
-            <a href="#"
-                class="flex items-center px-6 py-3 text-gray-600 hover:bg-green-50 hover:text-green-600 rounded-xl font-medium transition">
-                ✍️ <span class="ml-3">Pena Kader</span>
-            </a>
+            <!-- Pena Kader Dropdown -->
+            <div class="px-6">
+                <button id="toggle-pena"
+                    class="w-full flex items-center justify-between py-3 text-gray-600 hover:bg-green-50 hover:text-green-600 rounded-xl font-medium transition">
+                    <span class="flex items-center">
+                        ✍️ <span class="ml-3">Pena Kader</span>
+                    </span>
+                    <svg id="pena-arrow" class="w-4 h-4 transition-transform" fill="none" stroke="currentColor"
+                        stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+
+                <div id="pena-menu" class="mt-2 ml-6 space-y-1 hidden">
+                    <a href="#post"
+                        class="flex items-center px-4 py-2 text-gray-600 hover:bg-green-50 hover:text-green-600 rounded-lg transition">
+                        📝 <span class="ml-2">Post</span>
+                    </a>
+                    <a href="#category"
+                        class="flex items-center px-4 py-2 text-gray-600 hover:bg-green-50 hover:text-green-600 rounded-lg transition">
+                        📂 <span class="ml-2">Category</span>
+                    </a>
+                    <a href="{{ route('penulis.index') }}"
+        class="flex items-center px-4 py-2 rounded-lg transition
+        {{ request()->routeIs('penulis.*') ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600 hover:bg-green-50' }}">
+        👤 <span class="ml-2">Penulis</span>
+    </a>
+                </div>
+            </div>
+
             <a href="#"
                 class="flex items-center px-6 py-3 text-gray-600 hover:bg-green-50 hover:text-green-600 rounded-xl font-medium transition">
                 🎯 <span class="ml-3">Program Saya</span>
@@ -137,6 +163,15 @@
 </script>
 
 <script>
+    // Dropdown Pena Kader
+    const togglePena = document.getElementById('toggle-pena');
+    const penaMenu = document.getElementById('pena-menu');
+    const penaArrow = document.getElementById('pena-arrow');
+
+    togglePena.addEventListener('click', () => {
+        penaMenu.classList.toggle('hidden');
+        penaArrow.classList.toggle('rotate-180');
+    });
     // Dropdown Pengaturan toggle
     const toggleSettings = document.getElementById('toggle-settings');
     const settingsMenu = document.getElementById('settings-menu');
