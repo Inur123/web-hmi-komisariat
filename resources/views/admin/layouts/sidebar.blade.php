@@ -6,13 +6,17 @@
 
         <!-- Header -->
         <div class="flex items-center justify-between h-20 bg-white px-4 border-b border-gray-200">
-            <div class="flex items-center space-x-3">
-                <img src="/images/logo-fitrah.png" alt="HMI Fitrah Logo" class="w-12 h-12 object-contain">
-                <span class="text-2xl font-bold bg-gradient-to-r from-green-600 to-green-400 bg-clip-text text-transparent">
-                    HMI FITRAH
-                </span>
-            </div>
-            <button id="closeSidebar" class="lg:hidden p-2 text-gray-700 rounded-lg hover:bg-gray-100 transition">✖</button>
+            <a href="{{ route('dashboard') }}" class="flex items-center space-x-3">
+    <img src="/images/logo-fitrah.png" alt="HMI Fitrah Logo" class="w-12 h-12 object-contain">
+    <span class="text-2xl font-bold bg-gradient-to-r from-green-600 to-green-400 bg-clip-text text-transparent">
+        HMI FITRAH
+    </span>
+</a>
+
+          <button id="closeSidebar" class="lg:hidden p-2 text-gray-700 rounded-lg hover:bg-gray-100 transition">
+    <i class="fas fa-times text-2xl"></i>
+</button>
+
         </div>
 
         <!-- Navigation -->
@@ -81,7 +85,7 @@
 </div>
 
 <!-- Modal Konfirmasi Logout -->
-<div id="logout-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+<div id="logout-modal" class="fixed inset-0 z-50 flex items-center justify-center  hidden">
     <div id="logout-modal-content" class="bg-white rounded-2xl shadow-xl p-6 w-80">
         <h2 class="text-lg font-bold text-gray-800 mb-4">Konfirmasi Logout</h2>
         <p class="text-gray-600 mb-6">Apakah Anda yakin ingin logout?</p>
@@ -102,14 +106,33 @@
 </div>
 
 <script>
-    // Sidebar toggle
-    const sidebar = document.getElementById('sidebar');
-    document.getElementById('closeSidebar').addEventListener('click', () => {
-        sidebar.classList.add('-translate-x-full');
+document.addEventListener("DOMContentLoaded", () => {
+    const sidebar = document.getElementById("sidebar");
+    const openSidebar = document.getElementById("openSidebar");
+    const closeSidebar = document.getElementById("closeSidebar");
+
+    // Buka sidebar
+    openSidebar?.addEventListener("click", (e) => {
+        sidebar.classList.remove("-translate-x-full");
+        e.stopPropagation(); // mencegah event bubbling
     });
-    document.getElementById('openSidebar')?.addEventListener('click', () => {
-        sidebar.classList.remove('-translate-x-full');
+
+    // Tutup sidebar dengan tombol close
+    closeSidebar?.addEventListener("click", () => sidebar.classList.add("-translate-x-full"));
+
+    // Tutup sidebar saat klik di luar
+    document.addEventListener("click", (e) => {
+        if (!sidebar.contains(e.target) && !openSidebar.contains(e.target)) {
+            sidebar.classList.add("-translate-x-full");
+        }
     });
+
+    // Cegah klik di sidebar agar tidak menutup
+    sidebar.addEventListener("click", (e) => e.stopPropagation());
+});
+</script>
+
+<script>
 
     // Dropdown Pengaturan toggle
     const toggleSettings = document.getElementById('toggle-settings');

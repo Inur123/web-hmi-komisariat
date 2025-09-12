@@ -10,6 +10,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500;600&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 
 <body class="font-[Inter] bg-gray-50 min-h-screen">
@@ -28,14 +29,7 @@
         </main>
     </div>
 
-    <script>
-        const sidebar = document.getElementById("sidebar");
-        const openSidebar = document.getElementById("openSidebar");
-        const closeSidebar = document.getElementById("closeSidebar");
 
-        openSidebar?.addEventListener("click", () => sidebar.classList.remove("-translate-x-full"));
-        closeSidebar?.addEventListener("click", () => sidebar.classList.add("-translate-x-full"));
-    </script>
 </body>
 
 </html>

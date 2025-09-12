@@ -81,30 +81,40 @@
                         @enderror
                     </div>
 
-                    <!-- Password -->
-                    <div>
-                        <label class="block font-bold text-gray-800 mb-2">Password Baru</label>
-                        <input type="password" name="password"
-                            class="w-full px-4 py-3 border border-green-200 rounded-2xl
-                  focus:ring-2 focus:ring-green-600 focus:border-transparent
-                  focus:outline-none transition-all duration-300
-                  hover:border-green-600 bg-white/70"
-                            placeholder="Kosongkan jika tidak ingin mengubah password">
-                        @error('password')
-                            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
+                <!-- Password Baru -->
+<div class="relative w-full max-w-md">
+    <label class="block font-bold text-gray-800 mb-2">Password Baru</label>
+    <div class="relative">
+        <input type="password" id="password" name="password"
+            class="w-full px-4 py-3 pr-12 border border-green-200 rounded-2xl
+                   focus:ring-2 focus:ring-green-600 focus:border-transparent
+                   focus:outline-none transition-all duration-300
+                   hover:border-green-600 bg-white/70"
+            placeholder="Kosongkan jika tidak ingin mengubah password">
+        <button type="button" onclick="togglePassword('password', 'eyePassword')"
+            class="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-green-600">
+            <i id="eyePassword" class="fas fa-eye"></i>
+        </button>
+    </div>
+</div>
 
-                    <!-- Konfirmasi Password -->
-                    <div>
-                        <label class="block font-bold text-gray-800 mb-2">Konfirmasi Password Baru</label>
-                        <input type="password" name="password_confirmation"
-                            class="w-full px-4 py-3 border border-green-200 rounded-2xl
-                  focus:ring-2 focus:ring-green-600 focus:border-transparent
-                  focus:outline-none transition-all duration-300
-                  hover:border-green-600 bg-white/70"
-                            placeholder="Ulangi password baru">
-                    </div>
+<!-- Konfirmasi Password Baru -->
+<div class="relative w-full max-w-md mt-4">
+    <label class="block font-bold text-gray-800 mb-2">Konfirmasi Password Baru</label>
+    <div class="relative">
+        <input type="password" id="password_confirmation" name="password_confirmation"
+            class="w-full px-4 py-3 pr-12 border border-green-200 rounded-2xl
+                   focus:ring-2 focus:ring-green-600 focus:border-transparent
+                   focus:outline-none transition-all duration-300
+                   hover:border-green-600 bg-white/70"
+            placeholder="Ulangi password baru">
+        <button type="button" onclick="togglePassword('password_confirmation', 'eyeConfirm')"
+            class="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-green-600">
+            <i id="eyeConfirm" class="fas fa-eye"></i>
+        </button>
+    </div>
+</div>
+
 
                     <div>
                         <button type="submit"
@@ -119,4 +129,20 @@
             </div>
         </div>
     </div>
+    <script>
+function togglePassword(inputId, iconId) {
+    const input = document.getElementById(inputId);
+    const icon = document.getElementById(iconId);
+
+    if (input.type === "password") {
+        input.type = "text";
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+    } else {
+        input.type = "password";
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+    }
+}
+</script>
 @endsection
