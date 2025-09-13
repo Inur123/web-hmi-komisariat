@@ -45,16 +45,16 @@
                         class="flex items-center px-4 py-2 text-gray-600 hover:bg-green-50 hover:text-green-600 rounded-lg transition">
                         📝 <span class="ml-2">Post</span>
                     </a>
-                   <a href="{{ route('category.index') }}"
-        class="flex items-center px-4 py-2 rounded-lg transition
+                    <a href="{{ route('category.index') }}"
+                        class="flex items-center px-4 py-2 rounded-lg transition
         {{ request()->routeIs('category.*') ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600 hover:bg-green-50' }}">
-        📂 <span class="ml-2">Category</span>
-    </a>
+                        📂 <span class="ml-2">Category</span>
+                    </a>
                     <a href="{{ route('penulis.index') }}"
-        class="flex items-center px-4 py-2 rounded-lg transition
+                        class="flex items-center px-4 py-2 rounded-lg transition
         {{ request()->routeIs('penulis.*') ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600 hover:bg-green-50' }}">
-        👤 <span class="ml-2">Penulis</span>
-    </a>
+                        👤 <span class="ml-2">Penulis</span>
+                    </a>
                 </div>
             </div>
 
@@ -62,9 +62,10 @@
                 class="flex items-center px-6 py-3 text-gray-600 hover:bg-green-50 hover:text-green-600 rounded-xl font-medium transition">
                 🎯 <span class="ml-3">Program Saya</span>
             </a>
-            <a href="#"
-                class="flex items-center px-6 py-3 text-gray-600 hover:bg-green-50 hover:text-green-600 rounded-xl font-medium transition">
-                📅 <span class="ml-3">Kegiatan</span>
+            <a href="{{ route('kader.index') }}"
+                class="flex items-center px-6 py-3 rounded-xl font-medium
+   {{ request()->routeIs('kader.*') ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600 hover:bg-green-50' }}">
+                📅 <span class="ml-3">Data Kader</span>
             </a>
             <a href="{{ route('alumni.index') }}"
                 class="flex items-center px-6 py-3 rounded-xl font-medium
@@ -93,10 +94,13 @@
                        {{ request()->routeIs('profile.*') ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600 hover:bg-green-50' }}">
                         👤 <span class="ml-2">Profil</span>
                     </a>
-                    <a href="#"
-                        class="flex items-center px-4 py-2 text-gray-600 hover:bg-green-50 hover:text-green-600 rounded-lg transition">
-                        🔒 <span class="ml-2">Keamanan</span>
+                    <a href="{{ route('periode.index') }}"
+                        class="flex items-center px-4 py-2 rounded-lg transition
+   {{ request()->routeIs('periode.*') ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600 hover:bg-green-50' }}">
+                        🔒 <span class="ml-2">Periode</span>
                     </a>
+
+
                     <a href="#"
                         class="flex items-center px-4 py-2 text-gray-600 hover:bg-green-50 hover:text-green-600 rounded-lg transition">
                         🎨 <span class="ml-2">Preferensi</span>
