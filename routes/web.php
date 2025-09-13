@@ -2,9 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
+
 use App\Http\Controllers\Admin\KaderController;
 use App\Http\Controllers\Admin\AlumniController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\Posts\PostController;
 use App\Http\Controllers\Admin\Posts\PenulisController;
 use App\Http\Controllers\Admin\Posts\CategoryController;
 use App\Http\Controllers\Admin\Setting\PeriodeController;
@@ -35,4 +37,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('category', CategoryController::class);
     Route::resource('periode', PeriodeController::class);
     Route::resource('kader', KaderController::class);
+    Route::resource('posts', PostController::class);
+      Route::delete('posts/images/{id}', [PostController::class, 'deleteImage'])->name('posts.images.delete');
 });

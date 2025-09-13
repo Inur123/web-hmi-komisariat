@@ -41,10 +41,11 @@
                 </button>
 
                 <div id="pena-menu" class="mt-2 ml-6 space-y-1 hidden">
-                    <a href="#post"
-                        class="flex items-center px-4 py-2 text-gray-600 hover:bg-green-50 hover:text-green-600 rounded-lg transition">
-                        📝 <span class="ml-2">Post</span>
-                    </a>
+                     <a href="{{ route('posts.index') }}"
+           class="flex items-center px-4 py-2 rounded-lg transition
+           {{ request()->routeIs('posts.*') ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600 hover:bg-green-50' }}">
+            📝 <span class="ml-2">Post</span>
+        </a>
                     <a href="{{ route('category.index') }}"
                         class="flex items-center px-4 py-2 rounded-lg transition
         {{ request()->routeIs('category.*') ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600 hover:bg-green-50' }}">
