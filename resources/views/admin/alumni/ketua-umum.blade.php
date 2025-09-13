@@ -1,16 +1,13 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Data Alumni')
+@section('title', 'Data Ketua Umum')
 
 @section('content')
     <div class="max-w-6xl mx-auto p-6 bg-white/80 rounded-3xl shadow-lg">
         <div class="flex justify-between items-center mb-6">
-            <h2 class="text-2xl font-bold text-gray-800">Data Alumni</h2>
-            <a href="{{ route('alumni.create') }}"
-                class="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-2xl shadow-md transition-all">
-                + Tambah Alumni
-            </a>
+            <h2 class="text-2xl font-bold text-gray-800">👑 Data Ketua Umum</h2>
         </div>
+
         <div class="overflow-x-auto">
             <table class="w-full border border-gray-200 rounded-xl">
                 <thead class="bg-green-50">
@@ -27,9 +24,9 @@
                 </thead>
                 <tbody>
                     @php
-                        $no = ($alumnis->currentPage() - 1) * $alumnis->perPage() + 1;
+                        $no = ($ketuaUmum->currentPage() - 1) * $ketuaUmum->perPage() + 1;
                     @endphp
-                    @forelse($alumnis as $alumni)
+                    @forelse($ketuaUmum as $alumni)
                         <tr class="border-t hover:bg-gray-50">
                             <td class="p-3">{{ $no++ }}</td>
                             <td class="p-3">
@@ -66,53 +63,36 @@
                                     class="px-2 py-1 bg-gray-200 hover:bg-gray-300 rounded text-sm">
                                     <i class="fas fa-eye"></i>
                                 </a>
-
-                                <!-- Edit -->
-                                <a href="{{ route('alumni.edit', $alumni->id) }}"
-                                    class="px-2 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded text-sm">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-
-                                <!-- Delete -->
-                                <form action="{{ route('alumni.destroy', $alumni->id) }}" method="POST" class="inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button onclick="return confirm('Yakin hapus?')"
-                                        class="px-2 py-1 bg-red-500 hover:bg-red-600 text-white rounded text-sm">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </form>
                             </td>
-
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="8" class="p-4 text-center text-gray-500">Belum ada data alumni</td>
+                            <td colspan="8" class="p-4 text-center text-gray-500">Belum ada data ketua umum</td>
                         </tr>
                     @endforelse
                 </tbody>
                 <tfoot>
-        <tr class="bg-green-50 font-bold">
-            <td colspan="8" class="p-3 text-right">
-                Total Alumni: {{ $alumnis->total() }}
-            </td>
-        </tr>
-    </tfoot>
+                    <tr class="bg-green-50 font-bold">
+                        <td colspan="8" class="p-3 text-right">
+                            Total Ketua Umum: {{ $ketuaUmum->total() }}
+                        </td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
 
         <div class="mt-4 flex justify-between items-center">
-            <p class="text-gray-500">Halaman {{ $alumnis->currentPage() }} dari {{ $alumnis->lastPage() }}</p>
+            <p class="text-gray-500">Halaman {{ $ketuaUmum->currentPage() }} dari {{ $ketuaUmum->lastPage() }}</p>
             <div class="flex space-x-2">
-                @if ($alumnis->onFirstPage())
+                @if ($ketuaUmum->onFirstPage())
                     <span class="px-3 py-1 bg-gray-200 rounded">«</span>
                 @else
-                    <a href="{{ $alumnis->previousPageUrl() }}"
+                    <a href="{{ $ketuaUmum->previousPageUrl() }}"
                         class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">«</a>
                 @endif
 
-                @foreach ($alumnis->getUrlRange(1, $alumnis->lastPage()) as $page => $url)
-                    @if ($page == $alumnis->currentPage())
+                @foreach ($ketuaUmum->getUrlRange(1, $ketuaUmum->lastPage()) as $page => $url)
+                    @if ($page == $ketuaUmum->currentPage())
                         <span class="px-3 py-1 bg-green-500 text-white rounded">{{ $page }}</span>
                     @else
                         <a href="{{ $url }}"
@@ -120,8 +100,8 @@
                     @endif
                 @endforeach
 
-                @if ($alumnis->hasMorePages())
-                    <a href="{{ $alumnis->nextPageUrl() }}" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">»</a>
+                @if ($ketuaUmum->hasMorePages())
+                    <a href="{{ $ketuaUmum->nextPageUrl() }}" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">»</a>
                 @else
                     <span class="px-3 py-1 bg-gray-200 rounded">»</span>
                 @endif

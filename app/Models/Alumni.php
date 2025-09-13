@@ -17,5 +17,6 @@ class Alumni extends Model
         'fakultas',
         'prodi',
         'periode',
+        'jabatan'
     ];
 }

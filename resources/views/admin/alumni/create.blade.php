@@ -25,6 +25,18 @@
             @error('jenis_kelamin') <p class="text-red-600 text-sm">{{ $message }}</p> @enderror
         </div>
 
+        <!-- Tambahan Jabatan -->
+        <div>
+            <label class="block font-bold text-gray-800 mb-2">Jabatan</label>
+            <select name="jabatan" class="w-full px-4 py-3 border border-green-200 rounded-2xl focus:outline-none">
+                <option value="Alumni" {{ old('jabatan') == 'Alumni' ? 'selected' : '' }}>Alumni</option>
+                <option value="Ketua Umum" {{ old('jabatan') == 'Ketua Umum' ? 'selected' : '' }}>Ketua Umum</option>
+            </select>
+            @error('jabatan')
+                <p class="text-red-600 text-sm">{{ $message }}</p>
+            @enderror
+        </div>
+
         <div>
             <label class="block font-bold text-gray-800 mb-2">Alamat</label>
             <textarea name="alamat" rows="3"

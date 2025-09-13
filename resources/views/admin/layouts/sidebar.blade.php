@@ -41,11 +41,11 @@
                 </button>
 
                 <div id="pena-menu" class="mt-2 ml-6 space-y-1 hidden">
-                     <a href="{{ route('posts.index') }}"
-           class="flex items-center px-4 py-2 rounded-lg transition
+                    <a href="{{ route('posts.index') }}"
+                        class="flex items-center px-4 py-2 rounded-lg transition
            {{ request()->routeIs('posts.*') ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600 hover:bg-green-50' }}">
-            📝 <span class="ml-2">Post</span>
-        </a>
+                        📝 <span class="ml-2">Post</span>
+                    </a>
                     <a href="{{ route('category.index') }}"
                         class="flex items-center px-4 py-2 rounded-lg transition
         {{ request()->routeIs('category.*') ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600 hover:bg-green-50' }}">
@@ -68,11 +68,35 @@
    {{ request()->routeIs('kader.*') ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600 hover:bg-green-50' }}">
                 📅 <span class="ml-3">Data Kader</span>
             </a>
-            <a href="{{ route('alumni.index') }}"
-                class="flex items-center px-6 py-3 rounded-xl font-medium
-      {{ request()->routeIs('alumni.*') ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600 hover:bg-gray-50' }}">
-                🎓 <span class="ml-3">Data Alumni</span>
-            </a>
+            <!-- Dropdown Alumni -->
+            <div class="px-6">
+                <button id="toggle-alumni"
+                    class="w-full flex items-center justify-between py-3 text-gray-600 hover:bg-green-50 hover:text-green-600 rounded-xl font-medium transition">
+                    <span class="flex items-center">
+                        🎓 <span class="ml-3">Alumni</span>
+                    </span>
+                    <svg id="alumni-arrow" class="w-4 h-4 transition-transform" fill="none" stroke="currentColor"
+                        stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+
+                <div id="alumni-menu" class="mt-2 ml-6 space-y-1 hidden">
+                    <!-- Data Alumni -->
+                    <a href="{{ route('alumni.index') }}"
+                        class="flex items-center px-4 py-2 rounded-lg transition
+        {{ request()->routeIs('alumni.index') ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600 hover:bg-green-50' }}">
+                        📋 <span class="ml-2">Data Alumni</span>
+                    </a>
+
+
+                     <a href="{{ route('alumni.ketuaUmum') }}"
+        class="flex items-center px-4 py-2 rounded-lg transition
+        {{ request()->routeIs('alumni.ketuaUmum') ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600 hover:bg-green-50' }}">
+        👑 <span class="ml-2 text-sm">Data Ketua Umum</span>
+    </a>
+                </div>
+            </div>
 
 
 
@@ -186,6 +210,15 @@
     toggleSettings.addEventListener('click', () => {
         settingsMenu.classList.toggle('hidden');
         settingsArrow.classList.toggle('rotate-180');
+    });
+    // Dropdown Alumni
+    const toggleAlumni = document.getElementById('toggle-alumni');
+    const alumniMenu = document.getElementById('alumni-menu');
+    const alumniArrow = document.getElementById('alumni-arrow');
+
+    toggleAlumni.addEventListener('click', () => {
+        alumniMenu.classList.toggle('hidden');
+        alumniArrow.classList.toggle('rotate-180');
     });
 
     // Modal Logout

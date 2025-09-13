@@ -32,7 +32,11 @@ Route::middleware('auth')->group(function () {
         ->only(['edit','update'])
         ->parameters(['profile' => 'id']); // atau bisa []
     // Alumni Management
-    Route::resource('alumni', AlumniController::class);
+Route::get('alumni/ketua-umum', [AlumniController::class, 'ketuaUmum'])->name('alumni.ketuaUmum');
+Route::resource('alumni', AlumniController::class);
+
+
+
     Route::resource('penulis', PenulisController::class);
     Route::resource('category', CategoryController::class);
     Route::resource('periode', PeriodeController::class);
