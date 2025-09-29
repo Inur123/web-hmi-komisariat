@@ -20,4 +20,8 @@ class Category extends Model
             $category->slug = Str::slug($category->nama);
         });
     }
+     public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }

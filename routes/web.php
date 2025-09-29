@@ -3,8 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 
+use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\Admin\KaderController;
 use App\Http\Controllers\Admin\AlumniController;
+use App\Http\Controllers\User\PenaKaderController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Posts\PostController;
 use App\Http\Controllers\Admin\Posts\PenulisController;
@@ -12,10 +14,7 @@ use App\Http\Controllers\Admin\Posts\CategoryController;
 use App\Http\Controllers\Admin\Setting\PeriodeController;
 use App\Http\Controllers\Admin\Setting\ProfileController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Register
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
@@ -35,8 +34,6 @@ Route::middleware('auth')->group(function () {
 Route::get('alumni/ketua-umum', [AlumniController::class, 'ketuaUmum'])->name('alumni.ketuaUmum');
 Route::resource('alumni', AlumniController::class);
 
-
-
     Route::resource('penulis', PenulisController::class);
     Route::resource('category', CategoryController::class);
     Route::resource('periode', PeriodeController::class);
@@ -44,3 +41,7 @@ Route::resource('alumni', AlumniController::class);
     Route::resource('posts', PostController::class);
       Route::delete('posts/images/{id}', [PostController::class, 'deleteImage'])->name('posts.images.delete');
 });
+
+
+Route::get('/pena-kader', [PenaKaderController::class, 'index'])->name('pena-kader.index');
+Route::get('/pena-kader/{post:slug}', [PenaKaderController::class, 'show'])->name('pena-kader.show');
