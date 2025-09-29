@@ -10,13 +10,13 @@
     --font-heading: 'Poppins', sans-serif;
     --font-body: 'Inter', sans-serif;
 
-    /* Colors */
-    --color-primary: #06732EFF;
-    --color-secondary: #11853BFF;
+    /* Colors - Consolidated for consistency and to avoid redundancy */
+    --color-primary: #06732E;
+    --color-secondary: #11853B;
+    --color-primary-dark: #044b1e;   /* A darker shade for hover states */
+    --color-secondary-dark: #0b5f28; /* A darker shade for hover states */
     --color-accent: #f0fdf4;
     --color-dark: #1f2937;
-    --color-brand-green: #06732EFF;
-    --color-brand-light: #11853BFF;
 
     /* Animations */
     --animation-bounce-slow: bounce 3s infinite;
@@ -33,5 +33,141 @@
     @keyframes float {
         0%, 100% { transform: translateY(0px); }
         50% { transform: translateY(-20px); }
+    }
+}
+
+/* ===== KONSISTENSI WARNA UTAMA ===== */
+.bg-primary {
+    background-color: #06732E !important;
+}
+
+.bg-secondary {
+    background-color: #11853B !important;
+}
+
+.bg-accent {
+    background-color: #f0fdf4 !important;
+}
+
+.bg-dark {
+    background-color: #1f2937 !important;
+}
+
+.text-primary {
+    color: #06732E !important;
+}
+
+.text-secondary {
+    color: #11853B !important;
+}
+
+.text-accent {
+    color: #f0fdf4 !important;
+}
+
+.text-dark {
+    color: #1f2937 !important;
+}
+
+.border-primary {
+    border-color: #06732E !important;
+}
+
+.border-secondary {
+    border-color: #11853B !important;
+}
+
+/* ===== GRADIENT CONSISTENCY ===== */
+.bg-gradient-to-r.from-primary.to-secondary {
+    background: linear-gradient(to right, #06732E 0%, #11853B 100%) !important;
+}
+
+.bg-gradient-to-br.from-primary.to-secondary {
+    background: linear-gradient(135deg, #06732E 0%, #11853B 100%) !important;
+}
+
+/* Gradien Gelap (Biru ke Hitam) untuk Footer */
+.bg-gradient-night {
+    background: linear-gradient(135deg, #111827 0%, #000000 100%) !important;
+}
+
+/* ===== HOVER STATES ===== */
+.hover-bg-primary:hover {
+    background-color: #044b1e !important; /* using --color-primary-dark */
+}
+
+.hover-bg-secondary:hover {
+    background-color: #0b5f28 !important; /* using --color-secondary-dark */
+}
+
+.hover-text-primary:hover {
+    color: #044b1e !important;
+}
+
+.hover-text-secondary:hover {
+    color: #0b5f28 !important;
+}
+
+/* ===== BACKGROUND OPACITY - FIXED ===== */
+.bg-primary-opacity-10 {
+    background-color: rgba(6, 115, 46, 0.1) !important;
+}
+
+.bg-secondary-opacity-10 {
+    background-color: rgba(17, 133, 59, 0.1) !important;
+}
+
+.bg-accent-opacity-20 {
+    background-color: rgba(240, 253, 244, 0.2) !important;
+}
+
+/* ===== SAFARI SPECIFIC FIXES ===== */
+@media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) {
+        .bg-gradient-to-r.from-primary.to-secondary {
+            background: -webkit-linear-gradient(to right, #06732E 0%, #11853B 100%) !important;
+        }
+        .bg-gradient-to-br.from-primary.to-secondary {
+            background: -webkit-linear-gradient(135deg, #06732E 0%, #11853B 100%) !important;
+        }
+        .bg-gradient-night {
+            background: -webkit-linear-gradient(135deg, #111827 0%, #000000 100%) !important;
+        }
+    }
+}
+
+/* ===== MOBILE COLOR CONSISTENCY ===== */
+@media (max-width: 768px) {
+    .bg-primary {
+        background-color: #06732E !important;
+    }
+
+    .text-secondary {
+        color: #11853B !important;
+    }
+}
+
+/* ===== FALLBACK FOR OLDER BROWSERS ===== */
+@supports not (background: linear-gradient(to right, red, blue)) {
+    .bg-gradient-to-r.from-primary.to-secondary {
+        background: #06732E !important;
+    }
+    .bg-gradient-night {
+        background: #111827 !important; /* Fallback ke warna solid gelap */
+    }
+}
+
+/* ===== PRINT STYLES ===== */
+@media print {
+    .bg-primary {
+        background-color: #06732E !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .text-primary {
+        color: #06732E !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
     }
 }
