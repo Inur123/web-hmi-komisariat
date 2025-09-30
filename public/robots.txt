@@ -1,2 +1,3 @@
 User-agent: *
 Disallow:
+Sitemap: https://hmikomisariatfitrah.or.id/sitemap.xml

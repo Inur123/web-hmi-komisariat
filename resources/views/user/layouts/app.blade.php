@@ -16,6 +16,7 @@
     </title>
     @yield('meta')
     {{-- SEO Meta Tags --}}
+    <link rel="canonical" href="{{ url()->current() }}">
     <meta name="description"
         content="HMI Komisariat Fitrah Ponorogo – Informasi, kegiatan, dan update terbaru HMI Komisariat Fitrah, HMI Cabang Ponorogo, organisasi mahasiswa di Ponorogo, Jawa Timur.">
     <meta name="keywords"
