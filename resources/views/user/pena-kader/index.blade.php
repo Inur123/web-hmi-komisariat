@@ -23,7 +23,8 @@
                     <span class="gradient-text">Pena Kader <br></span> HMI Komisariat Fitrah ✍️
                 </h1>
                 <p class="text-lg text-gray-600 text-pretty max-w-3xl mx-auto leading-relaxed">
-                    Tempat kader-kader HMI Komisariat Fitrah berbagi pemikiran, pengalaman, dan inspirasi melalui tulisan yang
+                    Tempat kader-kader HMI Komisariat Fitrah berbagi pemikiran, pengalaman, dan inspirasi melalui tulisan
+                    yang
                     bermakna dan mencerahkan! 🌟
                 </p>
             </div>
@@ -35,18 +36,25 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Filter Categories -->
             <div class="flex flex-wrap justify-center gap-4 mb-12">
+                {{-- Tombol Semua --}}
                 <a href="{{ route('pena-kader.index') }}"
-                    class="px-6 py-3 rounded-2xl font-bold transition-all duration-300 {{ request('category') ? 'bg-white text-primary border-2 border-primary hover:bg-primary hover:text-white' : 'bg-primary text-white hover:shadow-lg' }}">
+                    class="px-6 py-3 rounded-2xl font-bold transition-all duration-300
+        {{ !request('category') ? 'bg-primary text-white shadow-md' : 'bg-white text-primary border-2 border-primary' }}">
                     Semua
                 </a>
 
+                {{-- Loop kategori --}}
                 @foreach ($categories as $category)
                     <a href="{{ route('pena-kader.index', ['category' => $category->slug]) }}"
-                        class="px-6 py-3 rounded-2xl font-bold transition-all duration-300 {{ request('category') == $category->slug ? 'bg-primary text-white hover:shadow-lg' : 'bg-white text-primary border-2 border-primary hover:bg-primary hover:text-white' }}">
+                        class="px-6 py-3 rounded-2xl font-bold transition-all duration-300
+            {{ request('category') == $category->slug
+                ? 'bg-primary text-white shadow-md'
+                : 'bg-white text-primary border-2 border-primary' }}">
                         {{ $category->nama }}
                     </a>
                 @endforeach
             </div>
+
 
 
             <!-- Blog Posts Grid -->
@@ -69,9 +77,10 @@
                                     <span class="text-lg">📅</span>
                                     {{ \Carbon\Carbon::parse($post->published_at)->translatedFormat('d F Y') }}
                                 </div>
-                                <h3 class="font-heading font-bold text-xl text-dark mb-3">
+                                <h3 class="font-heading font-bold text-xl text-dark mb-3 line-clamp-2">
                                     {{ $post->title }}
                                 </h3>
+
                                 <p class="text-gray-600 mb-4">
                                     {{ Str::limit(strip_tags($post->content), 120) }}
                                 </p>

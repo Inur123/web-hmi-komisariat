@@ -395,7 +395,7 @@
                                      <span class="text-lg">📅</span>
                                      {{ \Carbon\Carbon::parse($post->published_at)->translatedFormat('d F Y') }}
                                  </div>
-                                 <h3 class="font-heading font-bold text-xl text-dark mb-3">
+                                 <h3 class="font-heading font-bold text-xl text-dark mb-3 line-clamp-2">
                                      {{ $post->title }}
                                  </h3>
                                  <p class="text-gray-600 mb-4">

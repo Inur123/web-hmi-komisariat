@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ $code ?? 'Error' }} - {{ $message ?? 'Terjadi Kesalahan' }}</title>
     <link rel="icon" href="{{ asset('images/logo-fitrah.png') }}" type="image/x-icon">
-    @vite('resources/css/app.css', 'resources/js/app.js')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 </head>
 <body class="font-[Inter] bg-gradient-to-br from-green-50 via-white to-green-100 min-h-screen flex items-center justify-center relative overflow-hidden">

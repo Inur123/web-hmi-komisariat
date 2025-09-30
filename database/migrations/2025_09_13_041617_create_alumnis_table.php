@@ -12,18 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('alumnis', function (Blueprint $table) {
-        $table->id();
-        $table->string('nama')->nullable();
-        $table->enum('jenis_kelamin', ['L','P']); // wajib diisi
-        $table->string('alamat')->nullable();
-         $table->enum('jabatan', ['Alumni', 'Ketua Umum'])->default('Alumni');
-        $table->string('nohp')->nullable();
-        $table->string('foto')->nullable();
-        $table->string('fakultas')->nullable();
-        $table->string('prodi')->nullable();
-        $table->string('periode')->nullable();
-        $table->timestamps();
-    });
+            $table->id();
+            $table->string('nama')->nullable();
+            $table->enum('jenis_kelamin', ['L', 'P']); // wajib diisi
+            $table->string('alamat')->nullable();
+            $table->enum('jabatan', ['Alumni', 'Ketua Umum'])->default('Alumni');
+            $table->string('nohp')->nullable();
+            $table->string('foto')->nullable();
+            $table->string('fakultas')->nullable();
+            $table->string('prodi')->nullable();
+            $table->string('periode')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**

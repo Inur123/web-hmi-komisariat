@@ -27,16 +27,29 @@
                     <span
                         class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
                 </a>
-                <a href="#tentang" class="text-dark hover:text-primary font-medium relative group">
-                    ℹ️ Tentang
+                <div class="group relative">
                     <span
-                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-                </a>
-                <a href="#program" class="text-dark hover:text-primary font-medium relative group">
-                    🎯 Program
-                    <span
-                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-                </a>
+                        class="text-dark cursor-default hover:text-primary font-medium relative flex items-center space-x-1">
+                        🧑 Profile
+                        <!-- Icon arrow -->
+                        <i class="fas fa-angle-down text-xs ml-2"></i>
+                        <span
+                            class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                    </span>
+                    <!-- Sub-menu -->
+                    <div
+                        class="absolute left-0 mt-2 w-56 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-300">
+                        <a href="{{ route('profile.hmi-komisariat-fitrah') }}"
+                            class="block px-4 py-2 text-sm text-dark hover:bg-green-50">🏛️ HMI Komisariat Fitrah</a>
+                        <a href="{{ route('profile.daftar-ketua-umum') }}"
+                            class="block px-4 py-2 text-sm text-dark hover:bg-green-50">👑 Daftar Ketua Umum</a>
+                        <a href="{{ route('profile.program-kami') }}"
+                            class="block px-4 py-2 text-sm text-dark hover:bg-green-50">🎯 Program Kami</a>
+                        <a href="{{ route('profile.platform') }}"
+                            class="block px-4 py-2 text-sm text-dark hover:bg-green-50">💻 Platform</a>
+                    </div>
+                </div>
+
                 <a href="#tokoh-hmi" class="text-dark hover:text-primary font-medium relative group">
                     🌟 Tokoh HMI
                     <span
@@ -47,11 +60,6 @@
                 <a href="{{ route('pena-kader.index') }}"
                     class="text-dark hover:text-primary font-medium relative group">
                     ✍️ Pena Kader
-                </a>
-                <a href="#kontak" class="text-dark hover:text-primary font-medium relative group">
-                    📞 Kontak
-                    <span
-                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
                 </a>
             </div>
 
@@ -86,12 +94,24 @@
     </div>
     <div class="flex-1 p-6 flex flex-col space-y-4">
         <a href="#beranda" class="text-dark font-medium hover:text-primary">🏠 Beranda</a>
-        <a href="#tentang" class="text-dark font-medium hover:text-primary">ℹ️ Tentang</a>
-        <a href="#program" class="text-dark font-medium hover:text-primary">🎯 Program</a>
+        <div>
+            <button class="w-full flex justify-between items-center text-dark font-medium hover:text-primary"
+                onclick="toggleSubMenu()">
+                🧑 Profile
+                <i id="arrow" class="fas fa-angle-down ml-2"></i>
+            </button>
+            <div id="sub-menu" class="hidden flex flex-col pl-4 mt-2 space-y-2">
+                <a href="{{ route('profile.hmi-komisariat-fitrah') }}" class="text-dark hover:text-primary">🏛️ HMI
+                    Komisariat Fitrah</a>
+                <a href="{{ route('profile.daftar-ketua-umum') }}" class="text-dark hover:text-primary">👑 Daftar Ketua
+                    Umum</a>
+                <a href="{{ route('profile.program-kami') }}" class="text-dark hover:text-primary">🎯 Program Kami</a>
+                <a href="{{ route('profile.platform') }}" class="text-dark hover:text-primary">💻 Platform</a>
+            </div>
+        </div>
+
         <a href="#tokoh-hmi" class="text-dark font-medium hover:text-primary">🌟 Tokoh HMI</a>
         <a href="{{ route('pena-kader.index') }}" class="text-dark font-medium hover:text-primary">✍️ Pena Kader</a>
-
-        <a href="#kontak" class="text-dark font-medium hover:text-primary">📞 Kontak</a>
     </div>
 </div>
 
@@ -124,4 +144,19 @@
             closeMenu();
         });
     });
+
+    function toggleSubMenu() {
+        const menu = document.getElementById('sub-menu');
+        const arrow = document.getElementById('arrow');
+
+        menu.classList.toggle('hidden');
+
+        if (menu.classList.contains('hidden')) {
+            arrow.classList.remove('fa-angle-up');
+            arrow.classList.add('fa-angle-down');
+        } else {
+            arrow.classList.remove('fa-angle-down');
+            arrow.classList.add('fa-angle-up');
+        }
+    }
 </script>

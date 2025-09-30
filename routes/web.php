@@ -6,13 +6,19 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\Admin\KaderController;
 use App\Http\Controllers\Admin\AlumniController;
+
 use App\Http\Controllers\User\PenaKaderController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Posts\PostController;
+use App\Http\Controllers\User\Profile\HmiController;
 use App\Http\Controllers\Admin\Posts\PenulisController;
 use App\Http\Controllers\Admin\Posts\CategoryController;
 use App\Http\Controllers\Admin\Setting\PeriodeController;
 use App\Http\Controllers\Admin\Setting\ProfileController;
+use App\Http\Controllers\User\Profile\PlatformController;
+use App\Http\Controllers\User\Profile\KetuaUmumController;
+use App\Http\Controllers\User\Profile\ProgramKamiController;
+
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -45,3 +51,7 @@ Route::resource('alumni', AlumniController::class);
 
 Route::get('/pena-kader', [PenaKaderController::class, 'index'])->name('pena-kader.index');
 Route::get('/pena-kader/{post:slug}', [PenaKaderController::class, 'show'])->name('pena-kader.show');
+Route::get('/profile/hmi-komisariat-fitrah', [HmiController::class, 'index'])->name('profile.hmi-komisariat-fitrah');
+Route::get('/profile/daftar-ketua-umum', [KetuaUmumController::class, 'index'])->name('profile.daftar-ketua-umum');
+Route::get('/profile/program-kami', [ProgramKamiController::class, 'index'])->name('profile.program-kami');
+Route::get('/profile/platform', [PlatformController::class, 'index'])->name('profile.platform');
