@@ -6,13 +6,14 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\Admin\KaderController;
 use App\Http\Controllers\Admin\AlumniController;
-
+use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\User\PenaKaderController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Posts\PostController;
 use App\Http\Controllers\User\Profile\HmiController;
 use App\Http\Controllers\Admin\Posts\PenulisController;
 use App\Http\Controllers\Admin\Posts\CategoryController;
+use App\Http\Controllers\User\GalleryKegiatanController;
 use App\Http\Controllers\Admin\Setting\PeriodeController;
 use App\Http\Controllers\Admin\Setting\ProfileController;
 use App\Http\Controllers\User\Profile\PlatformController;
@@ -36,6 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('profile', ProfileController::class)
         ->only(['edit','update'])
         ->parameters(['profile' => 'id']); // atau bisa []
+     Route::resource('galleries', GalleryController::class);
     // Alumni Management
 Route::get('alumni/ketua-umum', [AlumniController::class, 'ketuaUmum'])->name('alumni.ketuaUmum');
 Route::resource('alumni', AlumniController::class);
@@ -45,7 +47,7 @@ Route::resource('alumni', AlumniController::class);
     Route::resource('periode', PeriodeController::class);
     Route::resource('kader', KaderController::class);
     Route::resource('posts', PostController::class);
-      Route::delete('posts/images/{id}', [PostController::class, 'deleteImage'])->name('posts.images.delete');
+    Route::delete('posts/images/{id}', [PostController::class, 'deleteImage'])->name('posts.images.delete');
 });
 
 
@@ -55,3 +57,6 @@ Route::get('/profile/hmi-komisariat-fitrah', [HmiController::class, 'index'])->n
 Route::get('/profile/daftar-ketua-umum', [KetuaUmumController::class, 'index'])->name('profile.daftar-ketua-umum');
 Route::get('/profile/program-kami', [ProgramKamiController::class, 'index'])->name('profile.program-kami');
 Route::get('/profile/platform', [PlatformController::class, 'index'])->name('profile.platform');
+
+Route::get('/gallery', [GalleryKegiatanController::class, 'index'])->name('gallery.index');
+Route::get('/gallery/{gallery}', [GalleryKegiatanController::class, 'show'])->name('gallery.show');

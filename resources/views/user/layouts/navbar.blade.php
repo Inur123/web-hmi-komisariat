@@ -60,7 +60,17 @@
                 <a href="{{ route('pena-kader.index') }}"
                     class="text-dark hover:text-primary font-medium relative group">
                     ✍️ Pena Kader
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
                 </a>
+
+                <a href="{{ route('gallery.index') }}" class="text-dark hover:text-primary font-medium relative group">
+                    📸 Galeri Kegiatan
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                </a>
+
+
             </div>
 
             <!-- Hamburger Button -->
@@ -112,6 +122,10 @@
 
         <a href="#tokoh-hmi" class="text-dark font-medium hover:text-primary">🌟 Tokoh HMI</a>
         <a href="{{ route('pena-kader.index') }}" class="text-dark font-medium hover:text-primary">✍️ Pena Kader</a>
+        <a href="{{ route('gallery.index') }}" class="text-dark font-medium hover:text-primary">
+            📸 Galeri Kegiatan
+        </a>
+
     </div>
 </div>
 

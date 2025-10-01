@@ -59,10 +59,11 @@
                 </div>
             </div>
 
-            <a href="#"
-                class="flex items-center px-6 py-3 text-gray-600 hover:bg-green-50 hover:text-green-600 rounded-xl font-medium transition">
-                🎯 <span class="ml-3">Program Saya</span>
-            </a>
+           <a href="{{ route('galleries.index') }}"
+    class="flex items-center px-6 py-3 rounded-xl font-medium
+   {{ request()->routeIs('admin.galleries.*') ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600 hover:bg-green-50' }}">
+    🖼️ <span class="ml-3">Gallery</span>
+</a>
             <a href="{{ route('kader.index') }}"
                 class="flex items-center px-6 py-3 rounded-xl font-medium
    {{ request()->routeIs('kader.*') ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600 hover:bg-green-50' }}">
@@ -90,11 +91,11 @@
                     </a>
 
 
-                     <a href="{{ route('alumni.ketuaUmum') }}"
-        class="flex items-center px-4 py-2 rounded-lg transition
+                    <a href="{{ route('alumni.ketuaUmum') }}"
+                        class="flex items-center px-4 py-2 rounded-lg transition
         {{ request()->routeIs('alumni.ketuaUmum') ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600 hover:bg-green-50' }}">
-        👑 <span class="ml-2 text-sm">Data Ketua Umum</span>
-    </a>
+                        👑 <span class="ml-2 text-sm">Data Ketua Umum</span>
+                    </a>
                 </div>
             </div>
 
