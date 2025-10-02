@@ -24,9 +24,16 @@
         <loc>https://hmikomisariatfitrah.or.id/profile/platform</loc>
         <priority>0.9</priority>
     </url>
+
     <!-- Pena Kader -->
     <url>
         <loc>https://hmikomisariatfitrah.or.id/pena-kader</loc>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Galeri Kegiatan -->
+    <url>
+        <loc>https://hmikomisariatfitrah.or.id/gallery</loc>
         <priority>0.8</priority>
     </url>
 
