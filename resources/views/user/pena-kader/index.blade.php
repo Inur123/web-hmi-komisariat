@@ -66,7 +66,7 @@
 
                             <!-- Thumbnail -->
                             <div class="aspect-video relative overflow-hidden">
-                                <img src="{{ $post->thumbnail ? asset('storage/' . $post->thumbnail) : '/images/logo-fitrah.png' }}"
+                                <img src="{{ $post->thumbnail ? asset('storage/' . $post->thumbnail) : '/images/logo-fitrah.webp' }}"
                                     alt="{{ $post->title }}"
                                     class="w-full h-full object-cover transition-transform duration-300">
                             </div>

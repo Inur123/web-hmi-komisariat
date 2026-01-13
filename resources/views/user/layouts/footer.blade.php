@@ -4,7 +4,7 @@
             <div class="space-y-4">
                 <div class="flex items-center space-x-3">
                     <div class="w-10 h-10 flex items-center justify-center">
-                        <img src="{{ asset('images/logo-fitrah.png') }}" alt="HMI Fitrah Logo"
+                        <img src="{{ asset('images/logo-fitrah.webp') }}" alt="HMI Fitrah Logo"
                             class="w-full h-full object-contain" />
                     </div>
                     <div>

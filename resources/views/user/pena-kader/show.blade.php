@@ -9,7 +9,7 @@
     @if ($post->thumbnail)
         <meta property="og:image" content="{{ asset('storage/' . $post->thumbnail) }}">
     @else
-        <meta property="og:image" content="{{ asset('images/logo-fitrah.png') }}">
+        <meta property="og:image" content="{{ asset('images/logo-fitrah.webp') }}">
     @endif
 
     <meta name="twitter:card" content="summary_large_image">
@@ -18,7 +18,7 @@
     @if ($post->thumbnail)
         <meta name="twitter:image" content="{{ asset('storage/' . $post->thumbnail) }}">
     @else
-        <meta name="twitter:image" content="{{ asset('images/logo-fitrah.png') }}">
+        <meta name="twitter:image" content="{{ asset('images/logo-fitrah.webp') }}">
     @endif
 @endsection
 

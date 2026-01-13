@@ -7,7 +7,7 @@
     <title>@yield('title', 'HMI Cabang Ponorogo Komisariat Fitrah')</title>
    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    <link rel="icon" href="{{ asset('images/logo-fitrah.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('images/logo-fitrah.webp') }}" type="image/x-icon">
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500;600&display=swap"
         rel="stylesheet">

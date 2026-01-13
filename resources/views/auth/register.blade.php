@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Register - HMI Cabang Ponorogo Komisariat Fitrah</title>
 
-    <link rel="icon" href="{{ asset('images/logo-fitrah.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('images/logo-fitrah.webp') }}" type="image/x-icon">
      @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
@@ -21,7 +21,7 @@
         <!-- Logo -->
         <div class="text-center mb-8">
             <div class="w-20 h-20 mx-auto mb-4 bg-white rounded-3xl shadow-lg flex items-center justify-center">
-                <img src="{{ asset('images/logo-fitrah.png') }}" alt="HMI Fitrah Logo" class="w-16 h-16 object-contain" />
+                <img src="{{ asset('images/logo-fitrah.webp') }}" alt="HMI Fitrah Logo" class="w-16 h-16 object-contain" />
             </div>
             <h1 class="font-[Poppins] font-bold text-3xl text-gray-800 mb-2">
                 Daftar

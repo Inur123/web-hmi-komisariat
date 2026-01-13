@@ -7,7 +7,7 @@
         <!-- Header -->
         <div class="flex items-center justify-between h-20 bg-white px-4 border-b border-gray-200">
             <a href="{{ route('dashboard') }}" class="flex items-center space-x-3">
-                <img src="/images/logo-fitrah.png" alt="HMI Fitrah Logo" class="w-12 h-12 object-contain">
+                <img src="/images/logo-fitrah.webp" alt="HMI Fitrah Logo" class="w-12 h-12 object-contain">
                 <span
                     class="text-2xl font-bold bg-gradient-to-r from-green-600 to-green-400 bg-clip-text text-transparent">
                     HMI FITRAH

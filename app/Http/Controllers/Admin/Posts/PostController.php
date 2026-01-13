@@ -12,6 +12,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 
+// Intervention Image v3
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\Encoders\WebpEncoder;
+
 class PostController extends Controller
 {
     public function index()
@@ -24,8 +29,52 @@ class PostController extends Controller
     {
         $categories = Category::all();
         $tags = Tag::all();
-        $penulis = Penulis::all(); // Tambahkan penulis
+        $penulis = Penulis::all();
         return view('admin.posts.create', compact('categories', 'tags', 'penulis'));
+    }
+
+    /**
+     * ✅ Convert upload image menjadi .webp dan simpan ke storage/public
+     * Return: path relatif (contoh: posts/thumbnails/xxxx.webp)
+     */
+    private function convertToWebp($file, string $folder, int $quality = 80): string
+    {
+        $filename = Str::uuid()->toString() . '.webp';
+        $path = trim($folder, '/') . '/' . $filename;
+
+        $manager = new ImageManager(new Driver());
+        $image = $manager->read($file->getRealPath());
+
+        // encode ke webp (Intervention Image v3)
+        $webp = $image->encode(new WebpEncoder(quality: $quality));
+
+        Storage::disk('public')->put($path, (string) $webp);
+
+        return $path;
+    }
+
+    private function syncTagsFromString(Post $post, ?string $tagsString): void
+    {
+        if (!$tagsString) {
+            $post->tags()->sync([]);
+            return;
+        }
+
+        $tags = array_filter(array_map('trim', explode(',', $tagsString)));
+        $tagIds = [];
+
+        foreach ($tags as $tagName) {
+            if ($tagName === '') continue;
+
+            $tag = Tag::firstOrCreate(
+                ['name' => $tagName],
+                ['slug' => Str::slug($tagName)]
+            );
+
+            $tagIds[] = $tag->id;
+        }
+
+        $post->tags()->sync($tagIds);
     }
 
     public function store(Request $request)
@@ -38,9 +87,14 @@ class PostController extends Controller
             'thumbnail' => 'nullable|image|max:5120',
             'images.*' => 'nullable|image|max:5120',
             'tags' => 'nullable|string',
+            'published_at' => 'nullable|date',
         ]);
 
-        $thumbnailPath = $request->file('thumbnail') ? $request->file('thumbnail')->store('posts/thumbnails', 'public') : null;
+        // ✅ Thumbnail -> WEBP
+        $thumbnailPath = null;
+        if ($request->hasFile('thumbnail')) {
+            $thumbnailPath = $this->convertToWebp($request->file('thumbnail'), 'posts/thumbnails', 80);
+        }
 
         $post = Post::create([
             'penulis_id' => $request->penulis_id,
@@ -53,23 +107,13 @@ class PostController extends Controller
             'published_at' => $request->published_at,
         ]);
 
-        if ($request->tags) {
-            $tags = explode(',', $request->tags);
-            $tagIds = [];
-            foreach ($tags as $tagName) {
-                $tagName = trim($tagName);
-                $tag = Tag::firstOrCreate(
-                    ['name' => $tagName],
-                    ['slug' => Str::slug($tagName)]
-                );
-                $tagIds[] = $tag->id;
-            }
-            $post->tags()->sync($tagIds);
-        }
+        // ✅ Tags
+        $this->syncTagsFromString($post, $request->tags);
 
+        // ✅ Images -> WEBP
         if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $image) {
-                $path = $image->store('posts/images', 'public');
+            foreach ($request->file('images') as $imgFile) {
+                $path = $this->convertToWebp($imgFile, 'posts/images', 80);
                 $post->images()->create(['image' => $path]);
             }
         }
@@ -95,17 +139,17 @@ class PostController extends Controller
             'thumbnail' => 'nullable|image|max:5120',
             'images.*' => 'nullable|image|max:5120',
             'tags' => 'nullable|string',
+            'published_at' => 'nullable|date',
         ]);
 
-        // Ganti thumbnail jika ada
+        // ✅ Ganti thumbnail kalau upload baru
         if ($request->hasFile('thumbnail')) {
-            if ($post->thumbnail && Storage::exists('public/' . $post->thumbnail)) {
-                Storage::delete('public/' . $post->thumbnail);
+            if ($post->thumbnail && Storage::disk('public')->exists($post->thumbnail)) {
+                Storage::disk('public')->delete($post->thumbnail);
             }
-            $post->thumbnail = $request->file('thumbnail')->store('posts/thumbnails', 'public');
+            $post->thumbnail = $this->convertToWebp($request->file('thumbnail'), 'posts/thumbnails', 80);
         }
 
-        // Update data post
         $post->update([
             'penulis_id' => $request->penulis_id,
             'title' => $request->title,
@@ -117,95 +161,82 @@ class PostController extends Controller
             'thumbnail' => $post->thumbnail,
         ]);
 
-        // Update tags
-        if ($request->tags) {
-            $tags = explode(',', $request->tags);
-            $tagIds = [];
-            foreach ($tags as $tagName) {
-                $tagName = trim($tagName);
-                $tag = Tag::firstOrCreate(['name' => $tagName], ['slug' => Str::slug($tagName)]);
-                $tagIds[] = $tag->id;
-            }
-            $post->tags()->sync($tagIds);
-        } else {
-            $post->tags()->sync([]);
-        }
-        // Hapus gambar yang ditandai
+        // ✅ Update tags
+        $this->syncTagsFromString($post, $request->tags);
+
+        // ✅ Hapus gambar yang ditandai (by id)
         if ($request->has('deleted_images')) {
-            foreach ($request->deleted_images as $imageId) {
+            foreach ((array) $request->deleted_images as $imageId) {
                 $img = $post->images()->find($imageId);
                 if ($img) {
-                    if (Storage::exists('public/' . $img->image)) {
-                        Storage::delete('public/' . $img->image);
+                    if ($img->image && Storage::disk('public')->exists($img->image)) {
+                        Storage::disk('public')->delete($img->image);
                     }
                     $img->delete();
                 }
             }
         }
 
-
-        // Tambah gambar baru tanpa menghapus existing
+        // ✅ Tambah images baru -> WEBP
         if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $image) {
-                $path = $image->store('posts/images', 'public');
+            foreach ($request->file('images') as $imgFile) {
+                $path = $this->convertToWebp($imgFile, 'posts/images', 80);
                 $post->images()->create(['image' => $path]);
             }
         }
+
         return redirect()->route('posts.index')->with('success', 'Berita berhasil diperbarui.');
     }
 
-
-  public function destroy(Post $post)
-{
-    // Hapus thumbnail kalau ada
-    if ($post->thumbnail && Storage::exists('public/'.$post->thumbnail)) {
-        Storage::delete('public/'.$post->thumbnail);
-    }
-
-    // Hapus semua gambar terkait
-    foreach ($post->images as $img) {
-        if (Storage::exists('public/'.$img->image)) {
-            Storage::delete('public/'.$img->image);
+    public function destroy(Post $post)
+    {
+        // Hapus thumbnail
+        if ($post->thumbnail && Storage::disk('public')->exists($post->thumbnail)) {
+            Storage::disk('public')->delete($post->thumbnail);
         }
-        $img->delete();
-    }
 
-    // Simpan tag sebelum di-detach
-    $tags = $post->tags;
-
-    // Lepas semua relasi tag dari post ini
-    $post->tags()->detach();
-
-    // Hapus post
-    $post->delete();
-
-    // Cek setiap tag, apakah masih dipakai post lain
-    foreach ($tags as $tag) {
-        if ($tag->posts()->count() === 0) {
-            $tag->delete();
+        // Hapus semua gambar terkait
+        foreach ($post->images as $img) {
+            if ($img->image && Storage::disk('public')->exists($img->image)) {
+                Storage::disk('public')->delete($img->image);
+            }
+            $img->delete();
         }
+
+        // Simpan tags dulu
+        $tags = $post->tags;
+
+        // detach tags
+        $post->tags()->detach();
+
+        // delete post
+        $post->delete();
+
+        // hapus tag yang tidak dipakai lagi
+        foreach ($tags as $tag) {
+            if ($tag->posts()->count() === 0) {
+                $tag->delete();
+            }
+        }
+
+        return redirect()->route('posts.index')->with('success', 'Berita berhasil dihapus.');
     }
-
-    return redirect()->route('posts.index')->with('success', 'Berita berhasil dihapus.');
-}
-
-
 
     public function deleteImage($id)
     {
         $image = PostImage::findOrFail($id);
 
-        if ($image->image && file_exists(public_path('storage/' . $image->image))) {
-            unlink(public_path('storage/' . $image->image));
+        if ($image->image && Storage::disk('public')->exists($image->image)) {
+            Storage::disk('public')->delete($image->image);
         }
 
         $image->delete();
 
         return response()->json(['success' => true]);
     }
+
     public function show(Post $post)
     {
-        // Load relasi penulis, kategori, tags, dan images
         $post->load('penulis', 'category', 'tags', 'images');
         return view('admin.posts.show', compact('post'));
     }
