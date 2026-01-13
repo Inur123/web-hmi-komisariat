@@ -60,28 +60,30 @@
                             <td class="p-3">{{ $alumni->fakultas }}</td>
                             <td class="p-3">{{ $alumni->prodi }}</td>
                             <td class="p-3">{{ $alumni->periode }}</td>
-                            <td class="p-3 text-center space-x-1">
-                                <!-- Show -->
-                                <a href="{{ route('alumni.show', $alumni->id) }}"
-                                    class="px-2 py-1 bg-gray-200 hover:bg-gray-300 rounded text-sm">
-                                    <i class="fas fa-eye"></i>
-                                </a>
+                            <td class="p-3">
+                                <div class="flex items-center justify-center gap-2 whitespace-nowrap">
+                                    <!-- Show -->
+                                    <a href="{{ route('alumni.show', $alumni->id) }}"
+                                        class="w-9 h-9 flex items-center justify-center bg-gray-200 hover:bg-gray-300 rounded-lg text-sm">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
 
-                                <!-- Edit -->
-                                <a href="{{ route('alumni.edit', $alumni->id) }}"
-                                    class="px-2 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded text-sm">
-                                    <i class="fas fa-edit"></i>
-                                </a>
+                                    <!-- Edit -->
+                                    <a href="{{ route('alumni.edit', $alumni->id) }}"
+                                        class="w-9 h-9 flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white rounded-lg text-sm">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
 
-                                <!-- Delete -->
-                                <form action="{{ route('alumni.destroy', $alumni->id) }}" method="POST" class="inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button onclick="return confirm('Yakin hapus?')"
-                                        class="px-2 py-1 bg-red-500 hover:bg-red-600 text-white rounded text-sm">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </form>
+                                    <!-- Delete -->
+                                    <form action="{{ route('alumni.destroy', $alumni->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" onclick="return confirm('Yakin hapus?')"
+                                            class="w-9 h-9 flex items-center justify-center bg-red-500 hover:bg-red-600 text-white rounded-lg text-sm">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
 
                         </tr>
@@ -92,12 +94,12 @@
                     @endforelse
                 </tbody>
                 <tfoot>
-        <tr class="bg-green-50 font-bold">
-            <td colspan="8" class="p-3 text-right">
-                Total Alumni: {{ $alumnis->total() }}
-            </td>
-        </tr>
-    </tfoot>
+                    <tr class="bg-green-50 font-bold">
+                        <td colspan="8" class="p-3 text-right">
+                            Total Alumni: {{ $alumnis->total() }}
+                        </td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
 

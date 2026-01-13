@@ -1,6 +1,53 @@
 @extends('user.layouts.app')
 
 @section('content')
+@php
+    $tokohHmi = [
+        [
+            'nama' => 'Nurcholish Madjid',
+            'peran' => 'Cendekiawan Muslim',
+            'deskripsi' => 'Tokoh pembaruan pemikiran Islam, mantan Ketua Umum PB HMI.',
+            'foto' => 'images/logo-fitrah.webp',
+        ],
+        [
+            'nama' => 'Akbar Tanjung',
+            'peran' => 'Tokoh Nasional',
+            'deskripsi' => 'Tokoh nasional yang dikenal luas, pernah aktif sebagai kader HMI.',
+            'foto' => 'images/logo-fitrah.webp',
+        ],
+        [
+            'nama' => 'Anies Baswedan',
+            'peran' => 'Akademisi & Tokoh Publik',
+            'deskripsi' => 'Tokoh publik yang dikenal luas; memiliki rekam jejak aktivitas organisasi mahasiswa.',
+            'foto' => 'images/logo-fitrah.webp',
+        ],
+        [
+            'nama' => 'Mahfud MD',
+            'peran' => 'Pakar Hukum',
+            'deskripsi' => 'Tokoh hukum nasional yang sering menjadi rujukan dalam isu ketatanegaraan.',
+            'foto' => 'images/logo-fitrah.webp',
+        ],
+        [
+            'nama' => 'Dahlan Iskan',
+            'peran' => 'Tokoh Media',
+            'deskripsi' => 'Figur inspiratif di bidang media dan kepemimpinan.',
+            'foto' => 'images/logo-fitrah.webp',
+        ],
+        [
+            'nama' => 'Busyro Muqoddas',
+            'peran' => 'Tokoh Hukum & HAM',
+            'deskripsi' => 'Dikenal dalam bidang hukum dan penguatan integritas.',
+            'foto' => 'images/logo-fitrah.webp',
+        ],
+        [
+            'nama' => 'Tamsil Linrung',
+            'peran' => 'Tokoh Politik',
+            'deskripsi' => 'Aktif dalam isu kebijakan publik dan penguatan peran pemuda.',
+            'foto' => 'images/logo-fitrah.webp',
+        ],
+    ];
+@endphp
+
     <!-- Hero Section -->
     <section id="beranda" class="relative py-16 lg:py-50 text-center overflow-hidden"
              x-data="{
@@ -209,7 +256,7 @@
                  x-data="{
                      currentIndex: 0,
                      itemsPerView: window.innerWidth >= 768 ? 4 : 1,
-                     totalItems: 7,
+                     totalItems: {{ count($tokohHmi) }},
                      get totalSlides() { return Math.ceil(this.totalItems / this.itemsPerView) },
                      get translateX() { return -(this.currentIndex * (100 / this.itemsPerView)) },
                      next() {
@@ -235,32 +282,34 @@
                  }"
                  x-init="window.addEventListener('resize', () => updateItemsPerView())"
                  @resize.window="updateItemsPerView()">
+
                 <!-- Carousel Items -->
                 <div class="carousel-container">
                     <div class="carousel-track flex" :style="`transform: translateX(${translateX}%)`">
-                        @for ($i = 0; $i < 7; $i++)
+                        @foreach ($tokohHmi as $tokoh)
                             <div class="carousel-item">
                                 <div
                                     class="bg-gradient-to-br from-accent to-white rounded-2xl overflow-hidden card-hover shadow-md border border-green-100 text-center h-full mx-2 p-3">
                                     <div class="w-full aspect-square overflow-hidden rounded-xl mb-2">
-                                        <img src="{{ asset('images/logo-fitrah.webp') }}" alt="Nurcholish Madjid"
-                                            class="w-full h-full object-cover" />
+                                        <img src="{{ asset($tokoh['foto'] ?? 'images/logo-fitrah.webp') }}"
+                                             alt="{{ $tokoh['nama'] }}"
+                                             class="w-full h-full object-cover" />
                                     </div>
 
                                     <div class="p-1">
                                         <h3 class="font-heading font-bold text-base text-dark mb-1">
-                                            Nurcholish Madjid
+                                            {{ $tokoh['nama'] }}
                                         </h3>
                                         <p class="text-primary font-medium text-xs mb-1">
-                                            Cendekiawan Muslim
+                                            {{ $tokoh['peran'] }}
                                         </p>
                                         <p class="text-gray-600 text-[10px]">
-                                            Tokoh pembaruan pemikiran Islam, mantan Ketua Umum PB HMI.
+                                            {{ $tokoh['deskripsi'] }}
                                         </p>
                                     </div>
                                 </div>
                             </div>
-                        @endfor
+                        @endforeach
                     </div>
                 </div>
 
@@ -309,7 +358,7 @@
                             class="bg-gradient-to-br from-accent to-white rounded-3xl overflow-hidden card-hover shadow-lg border border-green-100 transition-transform transform hover:-translate-y-1 hover:shadow-2xl">
 
                             <div class="aspect-video relative overflow-hidden">
-                                <img src="{{ $post->thumbnail ? asset('storage/' . $post->thumbnail) : '/images/logo-fitrah.webp' }}"
+                                <img src="{{ $post->thumbnail ? asset('storage/' . $post->thumbnail) : asset('images/logo-fitrah.webp') }}"
                                     alt="{{ $post->title }}"
                                     class="w-full h-full object-cover transition-transform duration-300">
                             </div>
